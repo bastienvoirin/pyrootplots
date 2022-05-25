@@ -11,7 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('../'))
 
 
 # -- Project information -----------------------------------------------------
@@ -19,6 +19,8 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'pyrootplots'
 copyright = '2022, Bastien Voirin'
 author = 'Bastien Voirin'
+github_username = 'bastienvoirin'
+github_repository = 'pyrootplots'
 
 
 # -- General configuration ---------------------------------------------------

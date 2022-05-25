@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""pyROOT/matplotlib binding module.
+"""pyrootplots is a plotting library for High Energy Physics. It offers lin/log histograms, ROC curves,
+stack plots, and cut efficiency vs. cut value plots from ROOT files using pyROOT and matplotlib.
 
-Plotting lin/log histograms, stack plots, ROC curves, and cut efficiency vs. cut value from ROOT
-files using pyROOT and matplotlib.
-
-Usage:
+Usage::
+    
     from pyrootplots import *
 """
 
@@ -35,7 +34,17 @@ class Condition(Enum):
 ####################################################################################################
 
 class Criterion:
+    def __init__(self,
+                 condition: Condition):
+        """
+        Args:
+            condition (Condition):
+        """
+        self.condition = condition
+        return
+
     def __str__(self):
+        """Concise string representation of an instance."""
         if self.condition == Condition.LESS_THAN:
             return f"{variableName} < {self.values[0]}"
         if self.condition == Condition.LESS_THAN_OR_EQUAL_TO:
@@ -60,16 +69,15 @@ class Criterion:
             return f"{variableName} < {self.values[0]} or {variableName} >= {self.values[1]}"
         if self.condition == Condition.NOT_IN_RANGE_CLOSED_CLOSED:
             return f"{variableName} < {self.values[0]} or {variableName} > {self.values[1]}"
+        raise ValueError
+
+    def __repr__():
+        """Complete string representation of an instance."""
+        return "\n".join([f"Criterion(condition = {self.condition}"])
 
 ####################################################################################################
 
 class Cut:
-    """
-    A cut is defined by a variable name (on which the cut is applied) and 1 or 2 values (defining
-    the criterion). The number of signal and background events before and after the cut must be
-    specified.
-    """
-
     def __init__(self,
                  variableName: str,
                  cutValues:    list[float],
@@ -82,6 +90,10 @@ class Cut:
                  bkgScale:     list[float] = [1.0],
                  scale:        bool = False):
         """
+        A cut is defined by a variable name (on which the cut is applied) and 1 or 2 values
+        (defining the criterion). The number of signal and background events before and after the
+        cut must be specified.
+        
         Args:
             variableName (str):
                 Name of the variable on which the cut is applied.
@@ -137,12 +149,9 @@ class Cut:
 ####################################################################################################
 
 class ROCCurve:
-    """Receiver operating characteristic curve."""
-
     def __init__(self,
                  cuts: list[Cut]):
-        """
-        """
+        """Receiver operating characteristic curve."""
         return
 
     def __str__(self):
@@ -168,14 +177,11 @@ class ROCCurve:
 ####################################################################################################
 
 class EfficiencyVsCutValue:
-    """Signal or background efficiency vs. cut value/threshold."""
-
     def __init__(self,
                  evtBefore:    list[float],
                  evtAfter:     list[float],
                  variableName: str):
-        """
-        """
+        """Signal or background efficiency vs. cut value/threshold."""
         self.evtBefore = evtBefore
         self.evtAfter  = evtAfter
         return
@@ -202,12 +208,8 @@ class EfficiencyVsCutValue:
 ####################################################################################################
 
 class Histogram1D:
-    """1D histogram.
-    """
-
     def __init__(self):
-        """
-        """
+        """1D histogram."""
         return
 
     def __str__(self):
@@ -217,16 +219,17 @@ class Histogram1D:
     def __repr__(self):
         """Complete string representation of an instance."""
         return ""
+
+    def plot(self):
+        """
+        """
+        return
 
 ####################################################################################################
 
 class Histogram2D:
-    """2D histogram.
-    """
-
     def __init__(self):
-        """
-        """
+        """2D histogram."""
         return
 
     def __str__(self):
@@ -237,7 +240,13 @@ class Histogram2D:
         """Complete string representation of an instance."""
         return ""
 
+    def plot(self):
+        """
+        """
+        return
+
 ####################################################################################################
 
+# Print the module's docstring when using it as a script instead of a module
 if __name__ == "__main__":
     print(__doc__)

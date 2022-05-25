@@ -9,12 +9,8 @@ version: 2
 sphinx:
   configuration: docs/conf.py
 
-# Set the version of Python and other tools you might need
-build:
-  tools:
-    python: "3.9"
-
 # Optionally declare the Python requirements required to build your docs
 python:
+  version: 3.7
   install:
   - requirements: docs/requirements.txt

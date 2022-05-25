@@ -56,11 +56,11 @@ class Criterion:
         if self.condition == Condition.IN_RANGE_OPEN_OPEN:
             return f"{self.values[0]} < {variableName} < {self.values[1]}"
         if self.condition == Condition.IN_RANGE_OPEN_CLOSED:
-            return f"{self.values[0]} < {variableName} < {self.values[1]}"
+            return f"{self.values[0]} < {variableName} <= {self.values[1]}"
         if self.condition == Condition.IN_RANGE_CLOSED_OPEN:
-            return f"{self.values[0]} < {variableName} < {self.values[1]}"
+            return f"{self.values[0]} <= {variableName} < {self.values[1]}"
         if self.condition == Condition.IN_RANGE_CLOSED_CLOSED:
-            return f"{self.values[0]} < {variableName} < {self.values[1]}"
+            return f"{self.values[0]} <= {variableName} <= {self.values[1]}"
         if self.condition == Condition.NOT_IN_RANGE_OPEN_OPEN:
             return f"{variableName} <= {self.values[0]} or {variableName} >= {self.values[1]}"
         if self.condition == Condition.NOT_IN_RANGE_OPEN_CLOSED:

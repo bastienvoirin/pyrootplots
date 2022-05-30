@@ -8,8 +8,13 @@ from Cut import Cut
 class ROCCurve:
     def __init__(self,
                  cuts: list[Cut]):
-        """Receiver operating characteristic curve."""
-        return
+        """Receiver operating characteristic curve.
+
+        Args:
+            cuts (list[Cut]):
+                List of the cuts to place on the ROC curve.        
+        """
+        self.cuts = cuts
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -23,10 +28,11 @@ class ROCCurve:
         """
         """
         fig, ax = plt.subplots()
-        ax.set_xticks(np.linspace(0.0, 1.0, 11))
-        ax.set_yticks(np.linspace(0.0, 1.0, 11))
+        ticks = np.linspace(0.0, 1.0, 11)
+        ax.set_xticks(ticks)
+        ax.set_yticks(ticks)
         plt.xlabel("B(after) / B(before)")
         plt.ylabel("S(after) / S(before)")
         plt.title("")
         plt.show()
-        return
+        return self

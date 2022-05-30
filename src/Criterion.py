@@ -11,7 +11,6 @@ class Criterion:
             condition (Condition):
         """
         self.condition = condition
-        return
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -43,4 +42,4 @@ class Criterion:
 
     def __repr__():
         """Complete string representation of an instance."""
-        return "\n".join([f"Criterion(condition = {self.condition}"])
+        return "\n".join([f"Criterion(condition = {self.condition})"])

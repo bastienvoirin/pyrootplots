@@ -40,8 +40,6 @@ class Cut:
                 Scaling to luminosity factor for each background.
             scale (bool, optional):
                 Whether or not the numbers displayed should be scaled to luminosity or not.
-
-        Returns:
         """
         self.variableName = variableName
         self.cutValues    = cutValues
@@ -53,7 +51,6 @@ class Cut:
         self.sigScale     = sigScale
         self.bkgScale     = bkgScale
         self.scale        = scale
-        return
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -61,13 +58,13 @@ class Cut:
 
     def __repr__(self):
         """Complete string representation of an instance."""
-        return "\n".join([f"Cut(variableName = {self.variableName},",
-                          f"    cutValues    = {self.cutValues},",
-                          f"    condition    = {self.condition},",
-                          f"    sigEvtBefore = {self.sigEvtBefore},",
-                          f"    sigEvtAfter  = {self.sigEvtAfter},",
-                          f"    bkgEvtBefore = {self.bkgEvtBefore},",
-                          f"    bkgEvtAfter  = {self.bkgEvtAfter},",
-                          f"    sigScale     = {self.sigScale},",
-                          f"    bkgScale     = {self.bkgScale},",
-                          f"    scale        = {self.scale})"])
+        return "\n,".join([f"Cut(variableName = {self.variableName}",
+                           f"    cutValues    = {self.cutValues}",
+                           f"    condition    = {self.condition}",
+                           f"    sigEvtBefore = {self.sigEvtBefore}",
+                           f"    sigEvtAfter  = {self.sigEvtAfter}",
+                           f"    bkgEvtBefore = {self.bkgEvtBefore}",
+                           f"    bkgEvtAfter  = {self.bkgEvtAfter}",
+                           f"    sigScale     = {self.sigScale}",
+                           f"    bkgScale     = {self.bkgScale}",
+                           f"    scale        = {self.scale})"])

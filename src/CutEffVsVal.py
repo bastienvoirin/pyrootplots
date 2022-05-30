@@ -8,10 +8,19 @@ class CutEffVsVal:
                  evtBefore:    list[float],
                  evtAfter:     list[float],
                  variableName: str):
-        """Signal or background efficiency vs. cut value/threshold."""
-        self.evtBefore = evtBefore
-        self.evtAfter  = evtAfter
-        return
+        """Signal or background efficiency vs. cut value/threshold.
+
+        Args:
+            evtBefore (list[float]):
+                Number of events before the cut, for each cut value.
+            evtAfter (list[float]):
+                Number of events after the cut, for each cut value.
+            variableName (str):
+                Name of the variable on which the cut is applied.
+        """
+        self.evtBefore    = evtBefore
+        self.evtAfter     = evtAfter
+        self.variableName = variableName
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -19,7 +28,9 @@ class CutEffVsVal:
 
     def __repr__(self):
         """Complete string representation of an instance."""
-        return ""
+        return "\n,".join([f"CutEffVsVal(evtBefore:    {self.evtBefore}",
+                           f"            evtAfter:     {self.evtAfter}",
+                           f"            variableName: {self.variableName})"])
 
     def plot(self):
         """
@@ -30,5 +41,5 @@ class CutEffVsVal:
         plt.ylabel("events(after) / events(before)")
         plt.title("")
         plt.show()
-        return
+        return self
 

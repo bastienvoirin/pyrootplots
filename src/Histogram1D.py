@@ -6,7 +6,6 @@ from matplotlib import pyplot as plt
 class Histogram1D:
     def __init__(self):
         """1D histogram."""
-        return
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -19,4 +18,4 @@ class Histogram1D:
     def plot(self):
         """
         """
-        return
+        return self

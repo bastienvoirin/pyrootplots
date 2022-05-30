@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""pyrootplots is a plotting library for High Energy Physics. It offers lin/log histograms, ROC curves,
-stack plots, and cut efficiency vs. cut value plots from ROOT files using pyROOT and matplotlib.
+"""
+``pyrootplots`` is a plotting library for High Energy Physics. It offers
+lin/log histograms, ROC curves, stack plots, and cut efficiency vs. cut value
+plots from ROOT files using ``pyROOT`` and ``matplotlib``.
 
 Usage::
     

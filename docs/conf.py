@@ -32,7 +32,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx_toolbox.more_autodoc.typehints'
+    'sphinx_toolbox.more_autodoc.typehints',
+    'm2r2'
 ]
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'

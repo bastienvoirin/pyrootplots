@@ -5,4 +5,7 @@ Welcome to pyrootplots' documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   readme
+   license
+   changelog
    reference

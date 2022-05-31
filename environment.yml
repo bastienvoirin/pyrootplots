@@ -9,3 +9,6 @@ dependencies:
     - numpy
     - pandas
     - matplotlib
+    - sphinx
+    - sphinx_rtd_theme
+    - sphinx-toolbox

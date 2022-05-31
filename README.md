@@ -1,4 +1,4 @@
-[![Documentation Status](https://readthedocs.org/projects/pyrootplots/badge/?version=latest)](https://pyrootplots.readthedocs.io/en/latest/?badge=latest)
+![Documentation Status](https://readthedocs.org/projects/pyrootplots/badge/?version=latest)(https://pyrootplots.readthedocs.io/en/latest/?badge=latest) ![GitHub last commit](https://img.shields.io/github/last-commit/bastienvoirin/pyrootplots) ![GitHub repo size](https://img.shields.io/github/repo-size/bastienvoirin/pyrootplots)
 
 ### pyrootplots
 

@@ -1,0 +1,11 @@
+name: pyrootplots
+channels:
+    - conda-forge
+    - anaconda
+dependencies:
+    - python=3.9.12
+    - pip
+    - root
+    - numpy
+    - pandas
+    - matplotlib

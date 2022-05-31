@@ -15,6 +15,14 @@ class Histogram2D:
         """Complete string representation of an instance."""
         return ""
 
+    def fromTH2F(self):
+        """Constructs a 2D histogram from a TH2F ROOT object."""
+        return self
+
+    def fromTH2D(self):
+        """Constructs a 2D histogram from a TH2D ROOT object."""
+        return self
+
     def plot(self):
         """
         """

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from Condition import Condition
+from .Condition import Condition
 
 class Cut:
     def __init__(self,
@@ -21,24 +21,24 @@ class Cut:
         cut must be specified.
         
         Args:
-            variableName (str):
+            variableName:
                 Name of the variable on which the cut is applied.
-            cutValues (list(float)):
+            cutValues:
                 Thresholds of the cut (1 or 2 values).
-            condition (Condition):
-            sigEvtBefore (float):
+            condition:
+            sigEvtBefore:
                 Number of signal events before the cut.
-            sigEvtAfter (float):
+            sigEvtAfter:
                 Number of signal events after the cut.
-            bkgEvtBefore (dict(str, float)):
+            bkgEvtBefore:
                 Number of background events before the cut, for each background.
-            bkgEvtAfter (dict(str, float)):
+            bkgEvtAfter:
                 Number of background events after the cut, for each background.
-            sigScale (float, optional):
+            sigScale:
                 Scaling to luminosity factor for the signal.
-            bkgScale (list(float), optional):
+            bkgScale:
                 Scaling to luminosity factor for each background.
-            scale (bool, optional):
+            scale:
                 Whether or not the numbers displayed should be scaled to luminosity or not.
         """
         self.variableName = variableName

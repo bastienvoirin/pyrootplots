@@ -12,18 +12,20 @@ Usage::
 """
 
 import ROOT
+from ROOT import TTree
+
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
 # pyrootplots' submodules/classes
-from Condition import Condition
-from Criterion import Criterion
-from Cut import Cut
-from CutEffVsVal import CutEffVsVal
-from Histogram1D import Histogram1D
-from Histogram2D import Histogram2D
-from ROCCurve import ROCCurve
+from .Condition import Condition
+from .Criterion import Criterion
+from .Cut import Cut
+from .CutEffVsVal import CutEffVsVal
+from .Histogram1D import Histogram1D
+from .Histogram2D import Histogram2D
+from .ROCCurve import ROCCurve
 
 # Print the module's docstring when using it as a script instead of a module
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 
 from matplotlib import pyplot as plt
 
-from Cut import Cut
+from .Cut import Cut
 
 class ROCCurve:
     def __init__(self,

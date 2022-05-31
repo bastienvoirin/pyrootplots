@@ -3,4 +3,4 @@ pandas
 matplotlib
 sphinx
 sphinx_rtd_theme
-sphinx-autodoc-typehints
+sphinx_toolbox

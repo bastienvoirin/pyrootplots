@@ -31,7 +31,8 @@ github_repository = 'pyrootplots'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx_autodoc_typehints'
+    'sphinx.ext.viewcode',
+    'sphinx_toolbox.more_autodoc.typehints'
 ]
 autodoc_member_order = 'bysource'
 autoclass_content = 'both'

@@ -6,6 +6,13 @@
 
 https://pyrootplots.readthedocs.io/en/latest/
 
+#### Installation
+
+```shell
+git clone https://github.com/bastienvoirin/pyrootplots
+pip install --user .
+```
+
 #### Development
 
 Setting up the environment:

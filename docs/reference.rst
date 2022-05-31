@@ -1,50 +1,50 @@
 Reference
 =========
 
-Condition.py
-------------
+Condition
+---------
 
 .. automodule:: Condition
     :members:
     :undoc-members:
 
-Criterion.py
-------------
+Criterion
+---------
 
 .. automodule:: Criterion
     :members:
     :undoc-members:
 
-Cut.py
-------
+Cut
+---
 
 .. automodule:: Cut
     :members:
     :undoc-members:
 
-CutEffVsVal.py
---------------
+CutEffVsVal
+-----------
 
 .. automodule:: CutEffVsVal
     :members:
     :undoc-members:
 
-Histogram1D.py
---------------
+Histogram1D
+-----------
 
 .. automodule:: Histogram1D
     :members:
     :undoc-members:
 
-Histogram2D.py
---------------
+Histogram2D
+-----------
 
 .. automodule:: Histogram2D
     :members:
     :undoc-members:
 
-ROCCurve.py
------------
+ROCCurve
+--------
 
 .. automodule:: ROCCurve
     :members:

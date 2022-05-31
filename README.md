@@ -1,19 +1,29 @@
 [![Documentation Status](https://readthedocs.org/projects/pyrootplots/badge/?version=latest)](https://pyrootplots.readthedocs.io/en/latest/?badge=latest) [![GitHub last commit](https://img.shields.io/github/last-commit/bastienvoirin/pyrootplots)](https://github.com/bastienvoirin/pyrootplots/commits) [![GitHub repo size](https://img.shields.io/github/repo-size/bastienvoirin/pyrootplots)](https://github.com/bastienvoirin/pyrootplots)
 
-### pyrootplots
+## pyrootplots
 
-#### Documentation
+### License
 
-https://pyrootplots.readthedocs.io/en/latest/
+[This project is licensed under the terms of the MIT license.](https://github.com/bastienvoirin/pyrootplots/blob/main/LICENSE.md)
 
-#### Installation
+### Documentation
+
+See https://pyrootplots.readthedocs.io/en/latest/.
+
+### Package installation
 
 ```shell
 git clone https://github.com/bastienvoirin/pyrootplots
 pip install --user .
 ```
 
-#### Development
+### Usage
+
+```python
+from pyrootplots import *
+```
+
+### Development
 
 Setting up the environment:
 
@@ -25,12 +35,13 @@ conda activate pyrootplots
 Editing:
 
 ```shell
-cd src
+cd src/pyrootplots
 ```
 
-Building the docs:
+Building the docs (the HTML pages are in `docs/_build/html`):
 
 ```shell
 cd docs
 make html
 ```
+

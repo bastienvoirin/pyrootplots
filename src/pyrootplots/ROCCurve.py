@@ -4,7 +4,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from pyrootplots.Cut import Cut
+from .Cut import Cut
 
 class ROCCurve:
     def __init__(self,

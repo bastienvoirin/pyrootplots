@@ -4,48 +4,48 @@ Reference
 Condition
 ---------
 
-.. automodule:: Condition
+.. automodule:: pyrootplots.Condition
     :members:
     :undoc-members:
 
 Criterion
 ---------
 
-.. automodule:: Criterion
+.. automodule:: pyrootplots.Criterion
     :members:
     :undoc-members:
 
 Cut
 ---
 
-.. automodule:: Cut
+.. automodule:: pyrootplots.Cut
     :members:
     :undoc-members:
 
 CutEffVsVal
 -----------
 
-.. automodule:: CutEffVsVal
+.. automodule:: pyrootplots.CutEffVsVal
     :members:
     :undoc-members:
 
 Histogram1D
 -----------
 
-.. automodule:: Histogram1D
+.. automodule:: pyrootplots.Histogram1D
     :members:
     :undoc-members:
 
 Histogram2D
 -----------
 
-.. automodule:: Histogram2D
+.. automodule:: pyrootplots.Histogram2D
     :members:
     :undoc-members:
 
 ROCCurve
 --------
 
-.. automodule:: ROCCurve
+.. automodule:: pyrootplots.ROCCurve
     :members:
     :undoc-members:

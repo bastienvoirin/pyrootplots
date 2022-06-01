@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pyrootplots.Condition import Condition
+from .Condition import Condition
 
 class Criterion:
     def __init__(self,

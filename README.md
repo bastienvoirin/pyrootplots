@@ -6,7 +6,7 @@
 
 [This project is licensed under the terms of the MIT license.](https://github.com/bastienvoirin/pyrootplots/blob/main/LICENSE.md)
 
-### Documentation (:uk:)
+### Documentation 🇬🇧
 
 See https://pyrootplots.readthedocs.io/en/latest/.
 
@@ -21,11 +21,13 @@ pip install --user .
 
 - Install `pyrootplots` (see Package installation)
 - Set up the environment:
+
 ```shell
 conda env create -f environment.yml
 conda activate pyrootplots
 ```
 - Import `pyrootplots` in your Python script:
+
 ```python
 from pyrootplots import *
 ```
@@ -34,21 +36,25 @@ from pyrootplots import *
 
 - Install `pyrootplots` (see Package installation)
 - Set up the environment:
+
 ```shell
 conda env create -f environment.yml
 conda activate pyrootplots
 ```
 - Develop:
+
 ```shell
 cd src/pyrootplots
 ```
 - Build the docs (the HTML pages are in `docs/_build/html`):
+
 ```shell
 cd docs
 make clean # optional
 make html
 ```
 - Commit
+
 ```shell
 git add
 git commit

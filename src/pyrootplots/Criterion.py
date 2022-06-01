@@ -11,8 +11,11 @@ class Criterion:
         """
         Args:
             variableName (str):
+                Variable name.
             condition (Condition):
+                Condition.
             values (list(str)):
+                Values.
 
         Example:
             

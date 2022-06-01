@@ -4,7 +4,19 @@
 from enum import Enum
 
 class Condition(Enum):
-    """Conditions used to define cuts."""
+    """Conditions used to define criteria and cuts.
+
+    Example:
+
+        >>> from pyrootplots import Condition
+        >>> print(Condition.GREATER_THAN_OR_EQUAL_TO)
+        <Condition.GREATER_THAN_OR_EQUAL_TO: 3>
+        >>> print(Condition.GREATER_THAN_OR_EQUAL_TO.name)
+        GREATER_THAN_OR_EQUAL_TO
+        >>> print(Condition.GREATER_THAN_OR_EQUAL_TO.value)
+        3
+
+    """
     LESS_THAN                  =  0 # a <  b
     LESS_THAN_OR_EQUAL_TO      =  1 # a <= b
     GREATER_THAN               =  2 # a >  b

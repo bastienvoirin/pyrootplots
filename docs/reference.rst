@@ -49,3 +49,10 @@ ROCCurve
 .. automodule:: pyrootplots.ROCCurve
     :members:
     :undoc-members:
+
+ROOTDataLoader
+--------
+
+.. automodule:: pyrootplots.ROOTDataLoader
+    :members:
+    :undoc-members:

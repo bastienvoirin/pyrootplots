@@ -26,6 +26,7 @@ from pyrootplots.CutEffVsVal import CutEffVsVal
 from pyrootplots.Histogram1D import Histogram1D
 from pyrootplots.Histogram2D import Histogram2D
 from pyrootplots.ROCCurve import ROCCurve
+from pyrootplots.ROOTDataLoader import ROOTDataLoader
 
 # Print the module's docstring when using it as a script instead of a module
 if __name__ == "__main__":

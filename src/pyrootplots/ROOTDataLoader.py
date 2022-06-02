@@ -23,7 +23,7 @@ class ROOTDataLoader:
         self.varWhitelist = varWhitelist
         self.varBlacklist = varBlacklist
 
-    def getPandasDataFrame(returnTree: bool = False)
+    def getPandasDataFrame(returnTree: bool = False):
         """Reads data from a ROOT file as a pandas DataFrame object.
         
         Args:

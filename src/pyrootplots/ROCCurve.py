@@ -18,7 +18,8 @@ class ROCCurve:
                  ylim:      list[float] = [0.0, 1.0],
                  minorGrid: dict        = {},
                  majorGrid: dict        = {},
-                 scatter:   dict        = {}):
+                 scatter:   dict        = {},
+                 txt:       list[str]   = []):
         """Receiver operating characteristic curve.
 
         Args:
@@ -44,6 +45,7 @@ class ROCCurve:
                 Parameters passed to ``plt.grid(which = "major")``.
             scatter:
                 Parameters passed to ``plt.scatter()``.
+            txt:
         """
         self.cuts      = cuts
         self.title     = title
@@ -51,9 +53,12 @@ class ROCCurve:
         self.ylabel    = ylabel
         self.xticks    = xticks
         self.yticks    = yticks
+        self.xlim      = xlim
+        self.ylim      = ylim
         self.minorGrid = minorGrid
         self.majorGrid = majorGrid
         self.scatter   = scatter
+        self.txt       = txt
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -68,9 +73,10 @@ class ROCCurve:
                            f"         yticks = {self.yticks})"])
 
     def plot(self,
-             fig        = None,
-             ax         = None,
-             show: bool = False):
+             fig            = None,
+             ax             = None,
+             show:     bool = False,
+             whichBkg: str  = ""):
         """Plots signal efficiency vs. background efficiency for each cut.
 
         Args:
@@ -80,6 +86,8 @@ class ROCCurve:
                 matplotlib Axes object.
             show (bool):
                 ``True`` to call ``plt.show()``, ``False`` otherwise.
+            whichBkg:
+                Name of the background.
 
         Returns:
             ``self``
@@ -93,11 +101,23 @@ class ROCCurve:
         ax.set_yticks(self.yticks)
         ax.grid(which = "major", **self.majorGrid)
         ax.grid(which = "minor", **self.minorGrid)
-        ax.set_xlim([0.0, 1.0])
-        ax.set_ylim([0.0, 1.0])
-        ax.scatter(x = [bkgEvtAfter / bkgEvtBefore for cut in self.cuts],
-                   y = [sigEvtAfter / sigEvtBefore for cut in self.cuts],
-                   **self.scatter)
+        ax.set_xlim(self.xlim)
+        ax.set_ylim(self.ylim)
+        x = [cut.bkgEvtAfter[whichBkg] / cut.bkgEvtBefore[whichBkg] for cut in self.cuts]
+        y = [cut.sigEvtAfter / cut.sigEvtBefore for cut in self.cuts]
+        ax.scatter(x, y, **self.scatter)
+        if self.txt:
+            for xi, yi, cut, txt in zip(x, y, self.cuts, self.txt):
+                print(cut)
+                S = cut.sigScale * cut.sigEvtAfter
+                print(S)
+                B = cut.bkgScale * cut.bkgEvtAfter[whichBkg]
+                print(B)
+                SBR = 100 * S/B
+                print(SBR)
+                ax.annotate(f"{txt}\nS = {S:.2f}, B = {B:.2f}\nS/B = {SBR:.4f}%",
+                            xy=(xi, yi), textcoords="offset points", va="center",
+                            xytext=(4, 0))
         if show:
             plt.show()
         return self

@@ -7,14 +7,14 @@ class Criterion:
     def __init__(self,
                  variableName: str,
                  condition:    Condition,
-                 values:       list[str]):
+                 values:       list[float]):
         """
         Args:
             variableName (str):
                 Variable name.
             condition (Condition):
                 Condition.
-            values (list(str)):
+            values (list(float)):
                 Values.
 
         Example:
@@ -62,7 +62,7 @@ class Criterion:
                                 f"{self.variableName} > {self.values[1]}"])
         raise ValueError
 
-    def __repr__():
+    def __repr__(self):
         """Complete string representation of an instance."""
         return ",\n".join([f"Criterion(variableName = {self.variableName}",
                            f"          condition    = {self.condition}",

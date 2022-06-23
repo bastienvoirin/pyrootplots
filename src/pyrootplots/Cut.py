@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from .Condition import Condition
+from .Criterion import Criterion
 
 class Cut:
     def __init__(self,
-                 variableName: str,
-                 cutValues:    list[float],
-                 condition:    Condition,
+                 criterion:    Criterion, 
                  sigEvtBefore: float,
                  sigEvtAfter:  float,
                  bkgEvtBefore: dict[str, float],
@@ -21,11 +19,8 @@ class Cut:
         cut must be specified.
         
         Args:
-            variableName:
-                Name of the variable on which the cut is applied.
-            cutValues:
-                Thresholds of the cut (1 or 2 values).
-            condition:
+            criterion:
+                Criterion defining the cut.
             sigEvtBefore:
                 Number of signal events before the cut.
             sigEvtAfter:
@@ -41,9 +36,7 @@ class Cut:
             scale:
                 Whether or not the numbers displayed should be scaled to luminosity or not.
         """
-        self.variableName = variableName
-        self.cutValues    = cutValues
-        self.condition    = condition
+        self.criterion    = criterion
         self.sigEvtBefore = sigEvtBefore
         self.sigEvtAfter  = sigEvtAfter
         self.bkgEvtBefore = bkgEvtBefore
@@ -54,13 +47,14 @@ class Cut:
 
     def __str__(self):
         """Concise string representation of an instance."""
-        return ""
+        return ", ".join([f"{self.criterion}",
+                          f"signal: {self.sigEvtBefore} => {self.sigEvtAfter}"]
+                       + [f"{bkg}: {self.bkgEvtBefore[bkg]} => {self.bkgEvtAfter[bkg]}"
+                          for bkg in self.bkgEvtBefore.keys()]) + ")"
 
     def __repr__(self):
         """Complete string representation of an instance."""
-        return "\n,".join([f"Cut(variableName = {self.variableName}",
-                           f"    cutValues    = {self.cutValues}",
-                           f"    condition    = {self.condition}",
+        return ",\n".join([f"Cut(criterion    = {self.criterion}",
                            f"    sigEvtBefore = {self.sigEvtBefore}",
                            f"    sigEvtAfter  = {self.sigEvtAfter}",
                            f"    bkgEvtBefore = {self.bkgEvtBefore}",

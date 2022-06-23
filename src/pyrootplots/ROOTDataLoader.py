@@ -7,31 +7,42 @@ import pandas
 
 class ROOTDataLoader:
     def __init__(self,
-                 tree,
                  files,
-                 varWhitelist: list[str] = [],
-                 varBlacklist: list[str] = []):
+                 tree:      str,
+                 variables: list[str] = []):
         """
         Args:
-            tree:
             files:
-            varWhitelist:
-            varBlacklist:
-        """
-        self.tree         = tree
-        self.files        = files
-        self.varWhitelist = varWhitelist
-        self.varBlacklist = varBlacklist
+                Files.
+            tree:
+                Tree.
+            variables:
+                List of variable names.
 
-    def getPandasDataFrame(returnTree: bool = False):
+        Example::
+
+            >>> from pyrootplots.ROOTDataLoader import ROOTDataLoader
+            >>> rdl = ROOTDataLoader("filename.root", "tree_name", ["eta", "phi"])
+            >>> pdf = rdl.getPandasDataFrame()
+            >>> print(pdf)
+        """
+        self.files     = files
+        self.tree      = tree
+        self.variables = variables
+
+    def getPandasDataFrame(self, returnTree: bool = False):
         """Reads data from a ROOT file as a pandas DataFrame object.
         
         Args:
             returnTree (bool):
+                Whether.
         """
+        ret = {}
         rdf = RDataFrame(self.tree, self.files)
-        ndf = rdf.AsNumpy()
-        pdf = pandas.DataFrame(ndf)
+        for var in self.variables:
+            ndf = rdf.AsNumpy([var])
+            pdf = pandas.DataFrame(ndf)
+            ret[var] = pdf
         if returnTree:
-            return pdf, self.tree
-        return pdf
+            return ret, None # TODO: return dict of TTree objects
+        return ret

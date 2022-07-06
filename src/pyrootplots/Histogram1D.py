@@ -55,6 +55,7 @@ class Histogram1D:
                 Bool to set legend
         """
 
+        
         self.data       = data
         self.weights    = weights
         self.bins       = bins

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
 import ROOT
 from ROOT import RDataFrame
 import pandas
@@ -10,7 +11,8 @@ class ROOTDataLoader:
                  files,
                  tree:      str,
                  variables: list[str] = []):
-        """
+        """Utility class to load ROOT files as ``pandas.DataFrame`` objects.
+        
         Args:
             files:
                 Files.
@@ -30,7 +32,8 @@ class ROOTDataLoader:
         self.tree      = tree
         self.variables = variables
 
-    def getPandasDataFrame(self, returnTree: bool = False):
+    def getPandasDataFrame(self,
+                           returnTree: bool = False):
         """Reads data from a ROOT file as a pandas DataFrame object.
         
         Args:

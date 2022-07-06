@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from __future__ import annotations
 from matplotlib import pyplot as plt
 import pandas as pd
-
 
 class Histogram1D:
     def __init__(self,
@@ -22,6 +22,7 @@ class Histogram1D:
                  makeLegend: bool = True
                  ):
         """1D histogram.
+        
         Args:
             data (list[pandas.DataFrame]):
                 List of data to fill histogram 
@@ -31,18 +32,18 @@ class Histogram1D:
             bins (int):
                 Number of bins for histogram.        
             xmin (float):
-                Minimum x-axis value
+                Minimum x-axis value.
             xmax (float):
-                Maximum x-axis value
+                Maximum x-axis value.
             logx (bool):
-                Set x-axis to log scale
+                Set x-axis to log scale.
             logy (bool):
-                Set y-axis to log scale
+                Set y-axis to log scale.
             stacked (bool):
                 Set to True if one wants to stack distributions. The default is set to False.
             density (bool):
                 Integrates the histogram to 1: as density = counts / (sum(counts) * np.diff(bins)).
-                By default set to False
+                By default set to False.
             histStyle (str):
                 The type of histogram to draw.
                     'bar' is a traditional bar-type histogram. If multiple data are given the bars are arranged side by side.
@@ -50,9 +51,9 @@ class Histogram1D:
                     'step' generates a lineplot that is by default unfilled.
                     'stepfilled' generates a lineplot that is by default filled.
             color (list[str]):
-                Color or sequence of colors, one per dataset
+                Color or sequence of colors, one per dataset.
             makeLegend (bool):
-                Bool to set legend
+                Bool to set legend.
         """
 
         self.data       = data
@@ -78,9 +79,8 @@ class Histogram1D:
         return ""
 
     def unitWeight(self, lenghtOfData: float):
-        '''
-        
-        '''
+        """
+        """
         self.lenghtOfData = lenghtOfData
 
         x = []
@@ -91,16 +91,15 @@ class Histogram1D:
         return unitWeight
 
     def writeLegend(self,
-                     ax,
-                     labels: list[str] = [],
-                     title: str = '',
-                     position: str = 'upper right',
-                     ncols: int = 1,
-                     spaceBetweenCols: float = 0.8,
-                     shadow: bool = False,
-                     facecolor: str = 'inherit',
-                     edgecolor: str = '0.8'
-                     ):
+                    ax,
+                    labels:           list[str] = [],
+                    title:            str       = "",
+                    position:         str       = "upper right",
+                    ncols:            int       = 1,
+                    spaceBetweenCols: float     = 0.8,
+                    shadow:           bool      = False,
+                    facecolor:        str       = "inherit",
+                    edgecolor:        str       = "0.8"):
         """
         """
         self.labels           = labels
@@ -116,9 +115,6 @@ class Histogram1D:
         
         return self
 
-
-
-
     def plot(self, ax):
         """
         """
@@ -126,23 +122,20 @@ class Histogram1D:
 
         for i in range(len(self.weights)):
             lenght = self.data[i].shape[0]
-            if(self.weights[i] is 1): self.weights[i] = self.unitWeight(lenght)
+            if self.weights[i] is 1:
+                self.weights[i] = self.unitWeight(lenght)
 
         mergedData = pd.concat(self.data[:], axis=1)
         mergedWeights = pd.concat(self.weights[:], axis=1)
 
-        self.ax.hist(x=mergedData,
-                     bins = self.bins,
-                     stacked = self.stacked,
-                     range = (self.xmin,self.xmax),
-                     density = self.density,
-                     weights = mergedWeights,
+        self.ax.hist(x        = mergedData,
+                     bins     = self.bins,
+                     stacked  = self.stacked,
+                     range    = (self.xmin, self.xmax),
+                     density  = self.density,
+                     weights  = mergedWeights,
                      histtype = self.histStyle,
-                     color = self.color
-                     )
-        
+                     color    = self.color)
         self.ax.legend(labels = self.labels)
         
         return self
-
-

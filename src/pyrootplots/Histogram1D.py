@@ -124,26 +124,26 @@ class Histogram1D:
                          weights  = mergedWeights,
                          histtype = "step",
                          color    = ["black"] * len(self.data),
-                         label    = self.label,
+                         label    = self.label if self.style == "outlined" else None,
                          stacked  = self.stacked)
 
         # Overlay first dataset?
         # fill
         if overlayFirstDataset and self.style in ("filled", "both"):
-            self.ax.hist(x        = mergedData[0],
+            self.ax.hist(x        = self.data[0],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = mergedWeights[0],
+                         weights  = self.weights[0],
                          histtype = "stepfilled",
                          color    = self.color[0])
         # outline
         if overlayFirstDataset and self.style in ("outlined", "both"):
-            self.ax.hist(x        = mergedData[0],
+            self.ax.hist(x        = self.data[0],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = mergedWeights[0],
+                         weights  = self.weights[0],
                          histtype = "step",
                          color    = "black")
         

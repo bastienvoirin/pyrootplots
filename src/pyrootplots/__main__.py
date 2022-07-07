@@ -24,7 +24,6 @@ from pyrootplots.Criterion import Criterion
 from pyrootplots.Cut import Cut
 from pyrootplots.CutEffVsVal import CutEffVsVal
 from pyrootplots.Histogram1D import Histogram1D
-from pyrootplots.Histogram2D import Histogram2D
 from pyrootplots.ROCCurve import ROCCurve
 from pyrootplots.ROOTDataLoader import ROOTDataLoader
 

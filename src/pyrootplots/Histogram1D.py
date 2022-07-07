@@ -111,7 +111,7 @@ class Histogram1D:
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
                          weights  = mergedWeights,
-                         histtype = "stepfilled,
+                         histtype = "stepfilled",
                          color    = self.color,
                          label    = self.label,
                          stacked  = self.stacked)

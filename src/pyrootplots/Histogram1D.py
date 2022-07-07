@@ -54,8 +54,8 @@ class Histogram1D:
                 Label or list of labels corresponding to the input data.
         """
 
-        self.data    = data
-        self.weights = weights
+        self.data    = data[::-1]
+        self.weights = weights[::-1]
         self.bins    = bins
         self.xmin    = xmin
         self.xmax    = xmax
@@ -64,8 +64,8 @@ class Histogram1D:
         self.stacked = stacked
         self.density = density
         self.style   = style
-        self.color   = color
-        self.label   = label
+        self.color   = color[::-1]
+        self.label   = label[::-1]
 
 
     def __str__(self):
@@ -91,10 +91,20 @@ class Histogram1D:
 
     def plot(self,
              ax,
+             title  = None,
+             xlabel = None,
+             ylabel = None,
              overlayFirstDataset: bool = False):
         """
         """
         self.ax = ax
+
+        if title:
+            ax.set_title(title)
+        if xlabel:
+            ax.set_xlabel(xlabel)
+        if ylabel:
+            ax.set_ylabel(ylabel)
 
         for i in range(len(self.weights)):
             length = self.data[i].shape[0]
@@ -129,21 +139,21 @@ class Histogram1D:
 
         # Overlay first dataset?
         # fill
-        if overlayFirstDataset and self.style in ("filled", "both"):
-            self.ax.hist(x        = self.data[0],
+        if overlayFirstDataset and (self.style in ("filled", "both")):
+            self.ax.hist(x        = self.data[-1],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = self.weights[0],
+                         weights  = self.weights[-1],
                          histtype = "stepfilled",
-                         color    = self.color[0])
+                         color    = self.color[-1])
         # outline
-        if overlayFirstDataset and self.style in ("outlined", "both"):
-            self.ax.hist(x        = self.data[0],
+        if overlayFirstDataset and (self.style in ("outlined", "both")):
+            self.ax.hist(x        = self.data[-1],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = self.weights[0],
+                         weights  = self.weights[-1],
                          histtype = "step",
                          color    = "black")
         

@@ -19,7 +19,7 @@ class Histogram1D:
                  density: bool      = False,
                  style:   str       = "both",
                  color:   list[str] = [],
-                 labels:  list[str] = []):
+                 label:   list[str] = []):
         """1D histogram.
         
         Args:

@@ -85,7 +85,7 @@ class ROOTDataLoader:
         """
         rootfile = uproot.open(filename)
         if debug:
-            print(*[f"{key} {val}" for key, val in rootfile.classes.items()], sep="\n")
+            print(*[f"{key} {val}" for key, val in dict(rootfile.classes).items()], sep="\n")
         histograms = {}
         for histname in histnames:
             hist = rootfile[histname]

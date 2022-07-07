@@ -100,11 +100,11 @@ class Histogram1D:
         self.ax = ax
 
         if title:
-            ax.set_title(title)
+            self.ax.set_title(title)
         if xlabel:
-            ax.set_xlabel(xlabel)
+            self.ax.set_xlabel(xlabel)
         if ylabel:
-            ax.set_ylabel(ylabel)
+            self.ax.set_ylabel(ylabel)
 
         for i in range(len(self.weights)):
             length = self.data[i].shape[0]

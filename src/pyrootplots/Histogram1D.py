@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -7,20 +8,18 @@ import pandas as pd
 
 class Histogram1D:
     def __init__(self,
-                 data: list[pd.DataFrame],
+                 data:    list[pd.DataFrame],
                  weights: list[pd.DataFrame],
-                 bins: int,
-                 xmin: float,
-                 xmax: float,
-                 logx: bool,
-                 logy: bool,
+                 bins:    int,
+                 xmin:    float,
+                 xmax:    float,
+                 logx:    bool,
+                 logy:    bool,
                  stacked: bool,
-                 density: bool = False,
-                 histStyle: str = 'bar',
-                 color: list[str] = [],
-                 labels: list[str] = [],
-                 makeLegend: bool = True
-                 ):
+                 density: bool      = False,
+                 style:   str       = "both",
+                 color:   list[str] = [],
+                 labels:  list[str] = []):
         """1D histogram.
         
         Args:
@@ -44,98 +43,110 @@ class Histogram1D:
             density (bool):
                 Integrates the histogram to 1: as density = counts / (sum(counts) * np.diff(bins)).
                 By default set to False.
-            histStyle (str):
+            style (str):
                 The type of histogram to draw.
-                    'bar' is a traditional bar-type histogram. If multiple data are given the bars are arranged side by side.
-                    'barstacked' is a bar-type histogram where multiple data are stacked on top of each other.
-                    'step' generates a lineplot that is by default unfilled.
-                    'stepfilled' generates a lineplot that is by default filled.
+                    - "filled" is a traditional contiguous bar-type bar histogram.
+                    - "outlined" is a lineplot.s
+                    - "both" draws a filled (contiguous bar-type) histogram with a black outline.
             color (list[str]):
                 Color or sequence of colors, one per dataset.
-            makeLegend (bool):
-                Bool to set legend.
+            label (list[str]):
+                Label or list of labels corresponding to the input data.
         """
 
-        self.data       = data
-        self.weights    = weights
-        self.bins       = bins
-        self.xmin       = xmin
-        self.xmax       = xmax
-        self.logx       = logx
-        self.logy       = logy
-        self.stacked    = stacked
-        self.density    = density
-        self.histStyle  = histStyle
-        self.color      = color
-        self.labels     = labels
+        self.data    = data
+        self.weights = weights
+        self.bins    = bins
+        self.xmin    = xmin
+        self.xmax    = xmax
+        self.logx    = logx
+        self.logy    = logy
+        self.stacked = stacked
+        self.density = density
+        self.style   = style
+        self.color   = color
+        self.label   = label
 
 
     def __str__(self):
         """Concise string representation of an instance."""
-        return ""
+        return "" # TODO
 
     def __repr__(self):
         """Complete string representation of an instance."""
-        return ""
+        return "" # TODO
 
-    def unitWeight(self, lenghtOfData: float):
+    def unitWeight(self,
+                   lengthOfData: int):
         """
         """
-        self.lenghtOfData = lenghtOfData
+        self.lengthOfData = lengthOfData
 
         x = []
-        for i in range(lenghtOfData):
+        for i in range(lengthOfData):
             x.append(1)
         unitWeight = pd.DataFrame(data=x)
 
         return unitWeight
 
-    def writeLegend(self,
-                    ax,
-                    labels:           list[str] = [],
-                    title:            str       = "",
-                    position:         str       = "upper right",
-                    ncols:            int       = 1,
-                    spaceBetweenCols: float     = 0.8,
-                    shadow:           bool      = False,
-                    facecolor:        str       = "inherit",
-                    edgecolor:        str       = "0.8"):
-        """
-        """
-        self.labels           = labels
-        self.title            = title
-        self.position         = position
-        self.ncols            = ncols
-        self.spaceBetweenCols = spaceBetweenCols
-        self.shadow           = shadow
-        self.facecolor        = facecolor
-        self.edgecolor        = edgecolor
-
-        # Still to do...
-        
-        return self
-
-    def plot(self, ax):
+    def plot(self,
+             ax,
+             overlayFirstDataset: bool = False):
         """
         """
         self.ax = ax
 
         for i in range(len(self.weights)):
-            lenght = self.data[i].shape[0]
+            length = self.data[i].shape[0]
             if self.weights[i] is 1:
-                self.weights[i] = self.unitWeight(lenght)
+                self.weights[i] = self.unitWeight(length)
 
-        mergedData = pd.concat(self.data[:], axis=1)
+        mergedData    = pd.concat(self.data[:],    axis=1)
         mergedWeights = pd.concat(self.weights[:], axis=1)
 
-        self.ax.hist(x        = mergedData,
-                     bins     = self.bins,
-                     stacked  = self.stacked,
-                     range    = (self.xmin, self.xmax),
-                     density  = self.density,
-                     weights  = mergedWeights,
-                     histtype = self.histStyle,
-                     color    = self.color)
+        # fill
+        if self.style in ("filled", "both"):
+            self.ax.hist(x        = mergedData,
+                         bins     = self.bins,
+                         range    = (self.xmin, self.xmax),
+                         density  = self.density,
+                         weights  = mergedWeights,
+                         histtype = "stepfilled,
+                         color    = self.color,
+                         label    = self.label,
+                         stacked  = self.stacked)
+        # outline
+        if self.style in ("outlined", "both"):
+            self.ax.hist(x        = mergedData,
+                         bins     = self.bins,
+                         range    = (self.xmin, self.xmax),
+                         density  = self.density,
+                         weights  = mergedWeights,
+                         histtype = "step",
+                         color    = ["black"] * len(mergedData),
+                         label    = self.label,
+                         stacked  = self.stacked)
+
+        # Overlay first dataset?
+        # fill
+        if overlayFirstDataset and self.style in ("filled", "both"):
+            self.ax.hist(x        = mergedData[0],
+                         bins     = self.bins,
+                         range    = (self.xmin, self.xmax),
+                         density  = self.density,
+                         weights  = mergedWeights[0],
+                         histtype = "stepfilled",
+                         color    = self.color[0])
+        # outline
+        if overlayFirstDataset and self.style in ("outlined", "both"):
+            self.ax.hist(x        = mergedData[0],
+                         bins     = self.bins,
+                         range    = (self.xmin, self.xmax),
+                         density  = self.density,
+                         weights  = mergedWeights[0],
+                         histtype = "step",
+                         color    = "black")
+
         self.ax.legend(labels = self.labels)
         
         return self

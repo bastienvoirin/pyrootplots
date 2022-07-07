@@ -73,10 +73,19 @@ class ROOTDataLoader:
             >>> hist1 = histograms["hist1"]
             >>> hist2 = histograms["hist2"]
             >>> hist3 = histograms["hist3"]
+            >>> hist1.fTitle
+            'Histogram 1 title'
+            >>> hist1.fXaxis.__dict__
+            {'fTitleFont': 42, 'fLabelColor': 1, 'fNdivisions': 510, 'fXmin': -4.0,
+            'fTimeDisplay': False, 'classversion': 1, 'fLabelFont': 42, 'fNbins': 100,
+            'fLabels': None, 'fXbins': [], 'fTitleColor': 1, 'fLabelOffset': 0.005,
+            'fName': 'xaxis', 'fLast': 0, 'fAxisColor': 1, 'fLabelSize': 0.035,
+            'fTitleOffset': 1.0, 'fTitle': '', 'fFirst': 0, 'fXmax': 4.0,
+            'fTickLength': 0.03, 'fTimeFormat': '', 'fBits2': 0, 'fTitleSize': 0.035} 
         """
         rootfile = uproot.open(filename)
         if debug:
-            print(*rootfile.classnames(), sep="\n")
+            print(*[f"{key} {val}" for key, val in rootfile.classes.items()], sep="\n")
         histograms = {}
         for histname in histnames:
             hist = rootfile[histname]

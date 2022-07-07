@@ -76,7 +76,7 @@ class ROOTDataLoader:
         """
         rootfile = uproot.open(filename)
         if debug:
-            print(*rootfiles.classnames(), sep="\n")
+            print(*rootfile.classnames(), sep="\n")
         histograms = {}
         for histname in histnames:
             hist = rootfile[histname]

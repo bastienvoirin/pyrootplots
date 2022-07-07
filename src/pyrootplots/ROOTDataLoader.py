@@ -55,7 +55,7 @@ class ROOTDataLoader:
     def fromFile(self,
                  filename:  str,
                  histnames: list[str],
-                 debug:     bool = False)
+                 debug:     bool = False):
     """Fetch histograms from a ROOT file.
 
     Args:

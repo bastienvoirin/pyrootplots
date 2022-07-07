@@ -21,9 +21,9 @@ class ROOTDataLoader:
                 Tree.
             variables:
                 List of variable names.
-
+        
         Example::
-
+        
             >>> from pyrootplots.ROOTDataLoader import ROOTDataLoader
             >>> rdl = ROOTDataLoader("filename.root", "tree_name", ["eta", "phi"])
             >>> pdf = rdl.getPandasDataFrame()

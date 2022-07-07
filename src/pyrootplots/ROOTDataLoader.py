@@ -83,11 +83,13 @@ class ROOTDataLoader:
             'fTitleOffset': 1.0, 'fTitle': '', 'fFirst': 0, 'fXmax': 4.0,
             'fTickLength': 0.03, 'fTimeFormat': '', 'fBits2': 0, 'fTitleSize': 0.035} 
         """
-        rootfile = uproot.open(filename)
-        if debug:
-            print(*[f"{key} {val}" for key, val in rootfile.classnames().items()], sep="\n")
         histograms = {}
-        for histname in histnames:
-            hist = rootfile[histname]
-            histograms[histname] = hist
+        with uproot.open(filename) as rootfile:
+            if debug:
+                entries = rootfile.classnames().items()
+                print(*[f"{key} {val}" for key, val in entries], sep="\n")
+                return entries
+            for histname in histnames:
+                hist = rootfile[histname]
+                histograms[histname] = hist
         return histograms

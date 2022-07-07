@@ -52,8 +52,8 @@ class ROOTDataLoader:
             return ret, None # TODO: return dict of TTree objects
         return ret
 
-    def fromFile(self,
-                 filename:  str,
+    @staticmethod
+    def fromFile(filename:  str,
                  histnames: list[str],
                  debug:     bool = False):
         """Fetch histograms from a ROOT file.

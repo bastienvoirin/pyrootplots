@@ -146,7 +146,5 @@ class Histogram1D:
                          weights  = mergedWeights[0],
                          histtype = "step",
                          color    = "black")
-
-        self.ax.legend(labels = self.labels)
         
         return self

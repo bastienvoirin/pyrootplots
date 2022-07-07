@@ -123,7 +123,7 @@ class Histogram1D:
                          density  = self.density,
                          weights  = mergedWeights,
                          histtype = "step",
-                         color    = ["black"] * len(mergedData),
+                         color    = ["black"] * len(self.data),
                          label    = self.label,
                          stacked  = self.stacked)
 

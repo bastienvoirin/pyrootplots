@@ -5,6 +5,7 @@
 from __future__ import annotations
 from matplotlib import pyplot as plt
 from matplotlib.patches import Rectangle
+import numpy as np
 import pandas as pd
 
 class Histogram1D:

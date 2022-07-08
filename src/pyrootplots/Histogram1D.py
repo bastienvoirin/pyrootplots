@@ -105,7 +105,7 @@ class Histogram1D:
              ylabelloc:           str   = "top",
              overlayfirstdataset: bool  = False,
              overlayscale:        float = 1.0, # TODO: scale the overlay by overlayscale
-             xylabelfontsize:   str   = "medium"):
+             xylabelfontsize:     str   = "medium"):
         """
         """
         self.ax = ax
@@ -141,7 +141,7 @@ class Histogram1D:
                          weights  = mergedWeights,
                          histtype = "stepfilled",
                          color    = self.color,
-                         label    = self.label,
+                         #label    = self.label,
                          stacked  = self.stacked)
         # outline
         if self.style in ("outlined", "both"):
@@ -152,7 +152,7 @@ class Histogram1D:
                          weights  = mergedWeights,
                          histtype = "step",
                          color    = ["black"] * len(self.data),
-                         label    = self.label if self.style == "outlined" else None,
+                         #label    = self.label if self.style == "outlined" else None,
                          stacked  = self.stacked)
 
         # Overlay first dataset?
@@ -180,7 +180,7 @@ class Histogram1D:
 
         if self.style in ("filled", "both"):
             handles = [Rectangle((0, 0), 1, 1, color=color, ec="k") for color in self.color]
-            labels  = [self.label]
+            labels  = self.label
             self.ax.legend(handles, labels, **self.legend)
 
         return self

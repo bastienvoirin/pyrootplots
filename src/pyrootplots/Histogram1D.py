@@ -91,21 +91,32 @@ class Histogram1D:
 
     def plot(self,
              ax,
-             title  = None,
-             xlabel = None,
-             ylabel = None,
-             axisLabelFontSize:   str  = "medium",
-             overlayFirstDataset: bool = False):
+             title                      = None,
+             titleLoc                   = "center",
+             titlePad                   = None,
+             xlabel                     = None,
+             xlabelLoc:           str   = "right",
+             ylabel                     = None,
+             ylabelLoc:           str   = "top"
+             overlayFirstDataset: bool  = False,
+             overlayScale:        float = 1.0, # TODO: scale the overlay by overlayScale
+             axisLabelFontSize:   str   = "medium"):
         """
         """
         self.ax = ax
 
         if title:
-            self.ax.set_title(title)
+            self.ax.set_title(label = title,
+                              loc   = titleLoc,
+                              pad   = titlePad)
         if xlabel:
-            self.ax.set_xlabel(xlabel, fontsize=axisLabelFontSize)
+            self.ax.set_xlabel(xlabel   = xlabel,
+                               loc      = xlabelLoc,
+                               fontsize = axisLabelFontSize)
         if ylabel:
-            self.ax.set_ylabel(ylabel, fontsize=axisLabelFontSize)
+            self.ax.set_ylabel(ylabel   = ylabel,
+                               loc      = ylabelLoc,
+                               fontsize = axisLabelFontSize)
 
         for i in range(len(self.weights)):
             length = self.data[i].shape[0]

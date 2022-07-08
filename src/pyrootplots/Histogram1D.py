@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 from matplotlib import pyplot as plt
+from matplotlib.patches import Rectangle
 import pandas as pd
 
 class Histogram1D:
@@ -19,7 +20,8 @@ class Histogram1D:
                  density: bool      = False,
                  style:   str       = "both",
                  color:   list[str] = [],
-                 label:   list[str] = []):
+                 label:   list[str] = [],
+                 legend:  dict      = {}):
         """1D histogram.
         
         Args:
@@ -52,6 +54,8 @@ class Histogram1D:
                 Color or sequence of colors, one per dataset.
             label (list[str]):
                 Label or list of labels corresponding to the input data.
+            legend (dict):
+                Keyword arguments passed to ``self.ax.legend()``.
         """
 
         self.data    = data[::-1]
@@ -66,15 +70,15 @@ class Histogram1D:
         self.style   = style
         self.color   = color[::-1]
         self.label   = label[::-1]
-
+        self.legend  = legend
 
     def __str__(self):
         """Concise string representation of an instance."""
-        return "" # TODO
+        return "Histogram1D(...)" # TODO
 
     def __repr__(self):
         """Complete string representation of an instance."""
-        return "" # TODO
+        return "Histogram1D(...)" # TODO
 
     def unitWeight(self,
                    lengthOfData: int):
@@ -92,31 +96,33 @@ class Histogram1D:
     def plot(self,
              ax,
              title                      = None,
-             titleLoc                   = "center",
-             titlePad                   = None,
+             titleloc:            str   = "center",
+             titlefontsize:       str   = "medium",
+             titlepad                   = None,
              xlabel                     = None,
-             xlabelLoc:           str   = "right",
+             xlabelloc:           str   = "right",
              ylabel                     = None,
-             ylabelLoc:           str   = "top",
-             overlayFirstDataset: bool  = False,
-             overlayScale:        float = 1.0, # TODO: scale the overlay by overlayScale
-             axisLabelFontSize:   str   = "medium"):
+             ylabelloc:           str   = "top",
+             overlayfirstdataset: bool  = False,
+             overlayscale:        float = 1.0, # TODO: scale the overlay by overlayscale
+             xylabelfontsize:   str   = "medium"):
         """
         """
         self.ax = ax
 
         if title:
-            self.ax.set_title(label = title,
-                              loc   = titleLoc,
-                              pad   = titlePad)
+            self.ax.set_title(label    = title,
+                              loc      = titleloc,
+                              fontsize = titlefontsize
+                              pad      = titlepad)
         if xlabel:
             self.ax.set_xlabel(xlabel   = xlabel,
-                               loc      = xlabelLoc,
-                               fontsize = axisLabelFontSize)
+                               loc      = xlabelloc,
+                               fontsize = xylabelfontsize)
         if ylabel:
             self.ax.set_ylabel(ylabel   = ylabel,
-                               loc      = ylabelLoc,
-                               fontsize = axisLabelFontSize)
+                               loc      = ylabelloc,
+                               fontsize = xylabelfontsize)
 
         for i in range(len(self.weights)):
             length = self.data[i].shape[0]
@@ -151,7 +157,7 @@ class Histogram1D:
 
         # Overlay first dataset?
         # fill
-        if overlayFirstDataset and (self.style in ("filled", "both")):
+        if overlayfirstdataset and (self.style in ("filled", "both")):
             self.ax.hist(x        = self.data[-1],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
@@ -160,7 +166,7 @@ class Histogram1D:
                          histtype = "stepfilled",
                          color    = self.color[-1])
         # outline
-        if overlayFirstDataset and (self.style in ("outlined", "both")):
+        if overlayfirstdataset and (self.style in ("outlined", "both")):
             self.ax.hist(x        = self.data[-1],
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
@@ -168,7 +174,13 @@ class Histogram1D:
                          weights  = self.weights[-1],
                          histtype = "step",
                          color    = "black")
-        
+
         self.ax.set_xlim(xmin = self.xmin,
                          xmax = self.xmax)
+
+        if self.style in ("filled", "both"):
+            handles = [Rectangle((0, 0), 1, 1, color=color, ec="k") for color in self.color]
+            labels  = [self.label]
+            self.ax.legend(handles, labels, **self.legend)
+
         return self

@@ -157,4 +157,6 @@ class Histogram1D:
                          histtype = "step",
                          color    = "black")
         
+        self.ax.set_xlim(xmin=xmin,
+                         xmax=xmax)
         return self

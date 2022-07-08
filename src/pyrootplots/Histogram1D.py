@@ -97,7 +97,7 @@ class Histogram1D:
              xlabel                     = None,
              xlabelLoc:           str   = "right",
              ylabel                     = None,
-             ylabelLoc:           str   = "top"
+             ylabelLoc:           str   = "top",
              overlayFirstDataset: bool  = False,
              overlayScale:        float = 1.0, # TODO: scale the overlay by overlayScale
              axisLabelFontSize:   str   = "medium"):

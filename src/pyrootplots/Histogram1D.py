@@ -94,6 +94,7 @@ class Histogram1D:
              title  = None,
              xlabel = None,
              ylabel = None,
+             axisLabelFontSize:   str  = "medium",
              overlayFirstDataset: bool = False):
         """
         """
@@ -102,9 +103,9 @@ class Histogram1D:
         if title:
             self.ax.set_title(title)
         if xlabel:
-            self.ax.set_xlabel(xlabel)
+            self.ax.set_xlabel(xlabel, fontsize=axisLabelFontSize)
         if ylabel:
-            self.ax.set_ylabel(ylabel)
+            self.ax.set_ylabel(ylabel, fontsize=axisLabelFontSize)
 
         for i in range(len(self.weights)):
             length = self.data[i].shape[0]

@@ -85,17 +85,11 @@ class Histogram1D:
         return "Histogram1D(...)" # TODO
 
     def unitWeight(self,
-                   lengthOfData: int):
+                   length:  int,
+                   dataset: int):
         """
         """
-        self.lengthOfData = lengthOfData
-
-        w = []
-        for i in range(lengthOfData):
-            w.append(1 if not self.scale else self.scale[i])
-        unitWeight = pd.DataFrame(data=w)
-
-        return unitWeight
+        return pd.DataFrame(data=np.full(length, 1 if not self.scale else self.scale[dataset]))
 
     def plot(self,
              ax,
@@ -130,7 +124,7 @@ class Histogram1D:
 
         for i in range(len(self.weights)):
             if self.weights[i] is 1:
-                self.weights[i] = self.unitWeight(self.data[i].shape[0])
+                self.weights[i] = self.unitWeight(self.data[i].shape[0], i)
 
         mergedData    = pd.concat(self.data[:],    axis=1)
         mergedWeights = pd.concat(self.weights[:], axis=1)

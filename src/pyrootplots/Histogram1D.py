@@ -68,8 +68,8 @@ class Histogram1D:
         self.stacked = stacked
         self.density = density
         self.style   = style
-        self.color   = color[::-1]
-        self.label   = label[::-1]
+        self.color   = color
+        self.label   = label
         self.legend  = legend
 
     def __str__(self):
@@ -104,7 +104,7 @@ class Histogram1D:
              ylabel                     = None,
              ylabelloc:           str   = "top",
              overlayfirstdataset: bool  = False,
-             overlayscale:        float = 1.0, # TODO: scale the overlay by overlayscale
+             overlayscale:        int   = 1,
              xylabelfontsize:     str   = "medium"):
         """
         """
@@ -141,7 +141,6 @@ class Histogram1D:
                          weights  = mergedWeights,
                          histtype = "stepfilled",
                          color    = self.color,
-                         #label    = self.label,
                          stacked  = self.stacked)
         # outline
         if self.style in ("outlined", "both"):
@@ -152,13 +151,12 @@ class Histogram1D:
                          weights  = mergedWeights,
                          histtype = "step",
                          color    = ["black"] * len(self.data),
-                         #label    = self.label if self.style == "outlined" else None,
                          stacked  = self.stacked)
 
         # Overlay first dataset?
         # fill
         if overlayfirstdataset and (self.style in ("filled", "both")):
-            self.ax.hist(x        = self.data[-1],
+            self.ax.hist(x        = self.data[-1], # TODO: scale the overlay by overlayscale
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
@@ -167,7 +165,7 @@ class Histogram1D:
                          color    = self.color[-1])
         # outline
         if overlayfirstdataset and (self.style in ("outlined", "both")):
-            self.ax.hist(x        = self.data[-1],
+            self.ax.hist(x        = self.data[-1], # TODO: scale the overlay by overlayscale
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
@@ -182,5 +180,7 @@ class Histogram1D:
             handles = [Rectangle((0, 0), 1, 1, color=color, ec="k") for color in self.color]
             labels  = self.label
             self.ax.legend(handles, labels, **self.legend)
+        else: # self.style == "outlined"
+            pass # TODO
 
         return self

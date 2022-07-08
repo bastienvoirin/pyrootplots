@@ -113,7 +113,7 @@ class Histogram1D:
         if title:
             self.ax.set_title(label    = title,
                               loc      = titleloc,
-                              fontsize = titlefontsize
+                              fontsize = titlefontsize,
                               pad      = titlepad)
         if xlabel:
             self.ax.set_xlabel(xlabel   = xlabel,

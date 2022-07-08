@@ -58,8 +58,8 @@ class Histogram1D:
                 Keyword arguments passed to ``self.ax.legend()``.
         """
 
-        self.data    = data[::-1]
-        self.weights = weights[::-1]
+        self.data    = data
+        self.weights = weights
         self.bins    = bins
         self.xmin    = xmin
         self.xmax    = xmax
@@ -156,20 +156,20 @@ class Histogram1D:
         # Overlay first dataset?
         # fill
         if overlayfirstdataset and (self.style in ("filled", "both")):
-            self.ax.hist(x        = self.data[-1], # TODO: scale the overlay by overlayscale
+            self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = self.weights[-1],
+                         weights  = self.weights[0],
                          histtype = "stepfilled",
-                         color    = self.color[-1])
+                         color    = self.color[0])
         # outline
         if overlayfirstdataset and (self.style in ("outlined", "both")):
-            self.ax.hist(x        = self.data[-1], # TODO: scale the overlay by overlayscale
+            self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
                          bins     = self.bins,
                          range    = (self.xmin, self.xmax),
                          density  = self.density,
-                         weights  = self.weights[-1],
+                         weights  = self.weights[0],
                          histtype = "step",
                          color    = "black")
 

@@ -17,11 +17,12 @@ class Histogram1D:
                  logx:    bool,
                  logy:    bool,
                  stacked: bool,
-                 density: bool      = False,
-                 style:   str       = "both",
-                 color:   list[str] = [],
-                 label:   list[str] = [],
-                 legend:  dict      = {}):
+                 density: bool        = False,
+                 style:   str         = "both",
+                 color:   list[str]   = [],
+                 label:   list[str]   = [],
+                 legend:  dict        = {},
+                 scale:   list[float] = []):
         """1D histogram.
         
         Args:
@@ -56,6 +57,8 @@ class Histogram1D:
                 Label or list of labels corresponding to the input data.
             legend (dict):
                 Keyword arguments passed to ``self.ax.legend()``.
+            scale (list[float]):
+                List of coefficients used to scale to luminosity.
         """
 
         self.data    = data
@@ -71,6 +74,7 @@ class Histogram1D:
         self.color   = color
         self.label   = label
         self.legend  = legend
+        self.scale   = scale
 
     def __str__(self):
         """Concise string representation of an instance."""
@@ -86,10 +90,10 @@ class Histogram1D:
         """
         self.lengthOfData = lengthOfData
 
-        x = []
+        w = []
         for i in range(lengthOfData):
-            x.append(1)
-        unitWeight = pd.DataFrame(data=x)
+            w.append(1 if not self.scale else self.scale[i])
+        unitWeight = pd.DataFrame(data=w)
 
         return unitWeight
 
@@ -125,9 +129,8 @@ class Histogram1D:
                                fontsize = xylabelfontsize)
 
         for i in range(len(self.weights)):
-            length = self.data[i].shape[0]
             if self.weights[i] is 1:
-                self.weights[i] = self.unitWeight(length)
+                self.weights[i] = self.unitWeight(length=self.data[i].shape[0])
 
         mergedData    = pd.concat(self.data[:],    axis=1)
         mergedWeights = pd.concat(self.weights[:], axis=1)

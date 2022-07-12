@@ -122,7 +122,7 @@ class Histogram1D:
                                loc      = ylabelloc,
                                fontsize = xylabelfontsize)
 
-        print(self.data.shape)
+        print(*[d.shape for d in self.data], sep=",")
         print(*[w.shape for w in self.weights], sep=",")
         for i in range(len(self.weights)):
             if self.weights[i] is 1:

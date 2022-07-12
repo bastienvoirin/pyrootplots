@@ -122,12 +122,17 @@ class Histogram1D:
                                loc      = ylabelloc,
                                fontsize = xylabelfontsize)
 
+        print(self.data.shape)
+        print(*[w.shape for w in self.weights], sep=",")
         for i in range(len(self.weights)):
             if self.weights[i] is 1:
                 self.weights[i] = self.unitWeight(self.data[i].shape[0], i)
+        print(*[w.shape for w in self.weights], sep=",")
 
         mergedData    = pd.concat(self.data[:],    axis=1)
         mergedWeights = pd.concat(self.weights[:], axis=1)
+        print(mergedData.shape)
+        print(mergedWeights.shape)
 
         # fill
         if self.style in ("filled", "both"):

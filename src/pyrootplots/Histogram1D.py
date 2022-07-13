@@ -12,6 +12,7 @@ class Histogram1D:
                  data:    list[pd.DataFrame],
                  weights: list[pd.DataFrame],
                  bins:    int,
+                 binned:  bool        = False,
                  xmin:    float,
                  xmax:    float,
                  logx:    bool,
@@ -32,7 +33,9 @@ class Histogram1D:
                 Multiply each bin by the value of the weighted bin. The shape of the weights list must be equal to that of the data.
                 If no weights is needed, default is set to 1.
             bins (int):
-                Number of bins for histogram.        
+                Number of bins for histogram.   
+            binned (bool):
+                Set to ``True`` if ``data`` is already the population of each bin.    
             xmin (float):
                 Minimum x-axis value.
             xmax (float):
@@ -42,7 +45,7 @@ class Histogram1D:
             logy (bool):
                 Set y-axis to log scale.
             stacked (bool):
-                Set to True if one wants to stack distributions. The default is set to False.
+                Set to ``True`` if one wants to stack distributions. The default is set to ``False``.
             density (bool):
                 Integrates the histogram to 1: as density = counts / (sum(counts) * np.diff(bins)).
                 By default set to False.
@@ -64,6 +67,7 @@ class Histogram1D:
         self.data    = data
         self.weights = weights
         self.bins    = bins
+        self.binned  = binned
         self.xmin    = xmin
         self.xmax    = xmax
         self.logx    = logx
@@ -122,67 +126,88 @@ class Histogram1D:
                                loc      = ylabelloc,
                                fontsize = xylabelfontsize)
 
-        print(*[d.shape for d in pd.DataFrame(self.data)], sep=",")
-        print(*[w.shape for w in pd.DataFrame(self.weights)], sep=",")
-        for i in range(len(self.weights)):
-            if self.weights[i] is 1:
-                self.weights[i] = self.unitWeight(self.data[i].shape[0], i)
-        print(*[w.shape for w in pd.DataFrame(self.weights)], sep=",")
+        if not self.binned:
+            print(*[d.shape for d in pd.DataFrame(self.data)], sep=",")
+            print(*[w.shape for w in pd.DataFrame(self.weights)], sep=",")
+            for i in range(len(self.weights)):
+                if self.weights[i] is 1:
+                    self.weights[i] = self.unitWeight(self.data[i].shape[0], i)
+            print(*[w.shape for w in pd.DataFrame(self.weights)], sep=",")
 
-        mergedData    = pd.concat(self.data[:],    axis=1)
-        mergedWeights = pd.concat(self.weights[:], axis=1)
-        print(mergedData.shape)
-        print(mergedWeights.shape)
+            mergedData    = pd.concat(self.data[:],    axis=1)
+            mergedWeights = pd.concat(self.weights[:], axis=1)
+            print(mergedData.shape)
+            print(mergedWeights.shape)
 
-        # fill
-        if self.style in ("filled", "both"):
-            self.ax.hist(x        = mergedData,
-                         bins     = self.bins,
-                         range    = (self.xmin, self.xmax),
-                         density  = self.density,
-                         weights  = mergedWeights,
-                         histtype = "stepfilled",
-                         color    = self.color,
-                         stacked  = self.stacked)
-        # outline
-        if self.style in ("outlined", "both"):
-            self.ax.hist(x        = mergedData,
-                         bins     = self.bins,
-                         range    = (self.xmin, self.xmax),
-                         density  = self.density,
-                         weights  = mergedWeights,
-                         histtype = "step",
-                         color    = ["black"] * len(self.data),
-                         stacked  = self.stacked)
+            # fill
+            if self.style in ("filled", "both"):
+                self.ax.hist(x        = mergedData,
+                             bins     = self.bins,
+                             range    = (self.xmin, self.xmax),
+                             density  = self.density,
+                             weights  = mergedWeights,
+                             histtype = "stepfilled",
+                             color    = self.color,
+                             stacked  = self.stacked)
+            # outline
+            if self.style in ("outlined", "both"):
+                self.ax.hist(x        = mergedData,
+                             bins     = self.bins,
+                             range    = (self.xmin, self.xmax),
+                             density  = self.density,
+                             weights  = mergedWeights,
+                             histtype = "step",
+                             color    = ["black"] * len(self.data),
+                             stacked  = self.stacked)
 
-        # Overlay first dataset?
-        # fill
-        if overlayfirstdataset and (self.style in ("filled", "both")):
-            self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
-                         bins     = self.bins,
-                         range    = (self.xmin, self.xmax),
-                         density  = self.density,
-                         weights  = self.weights[0],
-                         histtype = "stepfilled",
-                         color    = self.color[0])
-        # outline
-        if overlayfirstdataset and (self.style in ("outlined", "both")):
-            self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
-                         bins     = self.bins,
-                         range    = (self.xmin, self.xmax),
-                         density  = self.density,
-                         weights  = self.weights[0],
-                         histtype = "step",
-                         color    = "black")
+            # Overlay first dataset?
+            # fill
+            if overlayfirstdataset and (self.style in ("filled", "both")):
+                self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
+                             bins     = self.bins,
+                             range    = (self.xmin, self.xmax),
+                             density  = self.density,
+                             weights  = self.weights[0],
+                             histtype = "stepfilled",
+                             color    = self.color[0])
+            # outline
+            if overlayfirstdataset and (self.style in ("outlined", "both")):
+                self.ax.hist(x        = self.data[0], # TODO: scale the overlay by overlayscale
+                             bins     = self.bins,
+                             range    = (self.xmin, self.xmax),
+                             density  = self.density,
+                             weights  = self.weights[0],
+                             histtype = "step",
+                             color    = "black")
+        else: # data is already binned
+            mergedScaledData = pd.concat([scale * data for (scale, data) in zip(self.scale, self.data)], axis=1)
+            print(f"mergedScaledData.shape = {mergedScaledData.shape}")
+            # fill
+            if self.style in ("filled", "both"):
+                self.ax.hist(x        = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins),
+                             bins     = self.bins,
+                             range    = (self.xmin, self.xmax),
+                             density  = self.density,
+                             weights  = mergedScaledData,
+                             histtype = "stepfilled",
+                             color    = self.color,
+                             stacked  = self.stacked)
+            # outline
+            if self.style in ("outlined", "both"):
+                pass # TODO
 
         self.ax.set_xlim(xmin = self.xmin,
                          xmax = self.xmax)
 
-        if self.style in ("filled", "both"):
-            handles = [Rectangle((0, 0), 1, 1, color=color, ec="k") for color in self.color]
-            labels  = self.label
-            self.ax.legend(handles, labels, **self.legend)
-        else: # self.style == "outlined"
-            pass # TODO
+        if self.style == "both":
+            colors, ecs = self.color, ["k"] * len(self.color)
+        elif self.style == "filled":
+            colors, ecs = self.color, [None] * len(self.color)
+        elif self.style == "outlined":
+            colors, ecs = [None] * len(self.color), self.color
+        else:
+            raise ValueError(f"self.style, which is {self.style.__repr__()}, is not in ('filled', 'outlined', 'both')")
+        handles = [Rectangle((0, 0), 1, 1, color=color, ec=ec) for (color, ec) in zip(colors, ecs)]
+        self.ax.legend(handles, labels=self.label, **self.legend)
 
         return self

@@ -228,19 +228,19 @@ class Histogram1D:
                              density   = self.density,
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "stepfilled",
-                             color     = self.color[::-1],
+                             color     = self.color[0],
                              edgecolor = "k")
             # filled
-            if overlayfirstdataset and self.style == "both":
+            if overlayfirstdataset and self.style == "filled":
                 self.ax.hist(x         = mergedBinsEdges[:,-1],
                              bins      = self.bins,
                              range     = (self.xmin, self.xmax),
                              density   = self.density,
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "stepfilled",
-                             color     = self.color[::-1])
+                             color     = self.color[0])
             # both filled and outlined
-            if overlayfirstdataset and self.style == "both":
+            if overlayfirstdataset and self.style == "outlined":
                 self.ax.hist(x         = mergedBinsEdges[:,-1],
                              bins      = self.bins,
                              range     = (self.xmin, self.xmax),
@@ -248,7 +248,7 @@ class Histogram1D:
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "step",
                              color     = None,
-                             edgecolor = self.color[::-1])
+                             edgecolor = self.color[0])
 
         self.ax.set_xlim(xmin = self.xmin,
                          xmax = self.xmax)

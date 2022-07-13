@@ -183,7 +183,7 @@ class Histogram1D:
             mergedScaledData = pd.concat([data for (scale, data) in zip(self.scale, self.data)], axis=1)
             mergedScaledData = mergedScaledData[::-1]
             binsEdges = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins)
-            mergedBinsEdges = b = np.tile(binsEdges, (len(self.data), 1)).T
+            mergedBinsEdges = np.tile(binsEdges, (len(self.data), 1)).T
             # both filled and outlined
             if self.style == "both":
                 self.ax.hist(x         = mergedBinsEdges,

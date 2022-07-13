@@ -107,8 +107,26 @@ class Histogram1D:
              ylabelloc:           str   = "top",
              overlayfirstdataset: bool  = False,
              overlayscale:        int   = 1,
+             overlayhatch:        str   = "x",
+             overlayalpha:        float = 0.5,
              xylabelfontsize:     str   = "medium"):
         """
+
+        Args:
+            ax:
+            title:
+            titleloc:
+            titlefontsize:
+            titlepad:
+            xlabel:
+            xlabelloc:
+            ylabel:
+            ylabelloc:
+            overlayfirstdataset:
+            overlayscale:
+            overlayhatch:
+            overlayalpha:
+            xylabelfontsize:
         """
         self.ax = ax
 
@@ -229,6 +247,8 @@ class Histogram1D:
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "stepfilled",
                              color     = self.color[0],
+                             hatch     = overlayhatch,
+                             alpha     = overlayalpha,
                              edgecolor = "k")
             # filled
             if overlayfirstdataset and self.style == "filled":
@@ -238,7 +258,9 @@ class Histogram1D:
                              density   = self.density,
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "stepfilled",
-                             color     = self.color[0])
+                             color     = self.color[0],
+                             hatch     = overlayhatch,
+                             alpha     = overlayalpha)
             # both filled and outlined
             if overlayfirstdataset and self.style == "outlined":
                 self.ax.hist(x         = mergedBinsEdges[:,-1],
@@ -248,6 +270,8 @@ class Histogram1D:
                              weights   = scale[-1] * data[-1] * overlayscale,
                              histtype  = "step",
                              color     = None,
+                             hatch     = overlayhatch,
+                             alpha     = overlayalpha,
                              edgecolor = self.color[0])
 
         self.ax.set_xlim(xmin = self.xmin,

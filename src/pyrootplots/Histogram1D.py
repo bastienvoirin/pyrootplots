@@ -179,6 +179,7 @@ class Histogram1D:
                              weights  = self.weights[0],
                              histtype = "step",
                              color    = "black")
+
         else: # data is already binned
             scale, data = self.scale[::-1], self.data[::-1]
             mergedScaledData = pd.concat([s * d for (s, d) in zip(scale, data)], axis=1)
@@ -206,16 +207,47 @@ class Histogram1D:
                              histtype = "stepfilled",
                              color    = self.color[::-1],
                              stacked  = self.stacked)
-            # outlineed
+            # outlined
             if self.style == "outlined":
                 self.ax.hist(x         = mergedBinsEdges,
                              bins      = self.bins,
                              range     = (self.xmin, self.xmax),
                              density   = self.density,
                              weights   = mergedScaledData,
-                             histtype  = "stepfilled",
+                             histtype  = "step",
                              color     = None,
                              stacked   = self.stacked,
+                             edgecolor = self.color[::-1])
+
+            # Overlay first dataset?
+            # both filled and outlined
+            if overlayfirstdataset and self.style == "both":
+                self.ax.hist(x         = mergedBinsEdges[:,-1],
+                             bins      = self.bins,
+                             range     = (self.xmin, self.xmax),
+                             density   = self.density,
+                             weights   = scale[-1] * data[-1] * overlayscale,
+                             histtype  = "stepfilled",
+                             color     = self.color[::-1],
+                             edgecolor = "k")
+            # filled
+            if overlayfirstdataset and self.style == "both":
+                self.ax.hist(x         = mergedBinsEdges[:,-1],
+                             bins      = self.bins,
+                             range     = (self.xmin, self.xmax),
+                             density   = self.density,
+                             weights   = scale[-1] * data[-1] * overlayscale,
+                             histtype  = "stepfilled",
+                             color     = self.color[::-1])
+            # both filled and outlined
+            if overlayfirstdataset and self.style == "both":
+                self.ax.hist(x         = mergedBinsEdges[:,-1],
+                             bins      = self.bins,
+                             range     = (self.xmin, self.xmax),
+                             density   = self.density,
+                             weights   = scale[-1] * data[-1] * overlayscale,
+                             histtype  = "step",
+                             color     = None,
                              edgecolor = self.color[::-1])
 
         self.ax.set_xlim(xmin = self.xmin,

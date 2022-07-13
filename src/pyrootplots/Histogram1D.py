@@ -12,7 +12,6 @@ class Histogram1D:
                  data:    list[pd.DataFrame],
                  weights: list[pd.DataFrame],
                  bins:    int,
-                 binned:  bool        = False,
                  xmin:    float,
                  xmax:    float,
                  logx:    bool,
@@ -23,7 +22,8 @@ class Histogram1D:
                  color:   list[str]   = [],
                  label:   list[str]   = [],
                  legend:  dict        = {},
-                 scale:   list[float] = []):
+                 scale:   list[float] = [],
+                 binned:  bool        = False):
         """1D histogram.
         
         Args:

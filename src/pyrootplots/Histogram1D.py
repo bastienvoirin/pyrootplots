@@ -180,13 +180,26 @@ class Histogram1D:
                              histtype = "step",
                              color    = "black")
         else: # data is already binned
-            mergedScaledData = pd.concat([scale * data for (scale, data) in zip(self.scale, self.data)], axis=1)
+            mergedScaledData = pd.concat([data for (scale, data) in zip(self.scale, self.data)], axis=1)
+            print(f"mergedScaledData.shape = {mergedScaledData.shape}")
+            mergedScaledData = mergedScaledData[::,::-1]
             print(f"mergedScaledData.shape = {mergedScaledData.shape}")
             binsEdges = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins)
             mergedBinsEdges = b = np.tile(binsEdges, (len(self.data), 1)).T
-            print(f"mergedBinsEdges = {mergedBinsEdges}")
-            # fill
-            if self.style in ("filled", "both"):
+            print(f"mergedBinsEdges.shape = {mergedBinsEdges.shape}")
+            # both filled and outlined
+            if self.style == "both":
+                self.ax.hist(x         = mergedBinsEdges,
+                             bins      = self.bins,
+                             range     = (self.xmin, self.xmax),
+                             density   = self.density,
+                             weights   = mergedScaledData,
+                             histtype  = "stepfilled",
+                             color     = self.color,
+                             stacked   = self.stacked,
+                             edgecolor = "k")
+            # filled
+            if self.style == "filled":
                 self.ax.hist(x        = mergedBinsEdges,
                              bins     = self.bins,
                              range    = (self.xmin, self.xmax),
@@ -195,8 +208,8 @@ class Histogram1D:
                              histtype = "stepfilled",
                              color    = self.color,
                              stacked  = self.stacked)
-            # outline
-            if self.style in ("outlined", "both"):
+            # outlineed
+            if self.style == "outlined":
                 pass # TODO
 
         self.ax.set_xlim(xmin = self.xmin,

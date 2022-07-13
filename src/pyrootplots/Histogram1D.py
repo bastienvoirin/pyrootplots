@@ -182,9 +182,12 @@ class Histogram1D:
         else: # data is already binned
             mergedScaledData = pd.concat([scale * data for (scale, data) in zip(self.scale, self.data)], axis=1)
             print(f"mergedScaledData.shape = {mergedScaledData.shape}")
+            binsEdges = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins)
+            mergedBinsEdges = b = np.tile(binsEdges, (len(self.data), 1)).T
+            print(f"mergedBinsEdges = {mergedBinsEdges}")
             # fill
             if self.style in ("filled", "both"):
-                self.ax.hist(x        = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins),
+                self.ax.hist(x        = mergedBinsEdges,
                              bins     = self.bins,
                              range    = (self.xmin, self.xmax),
                              density  = self.density,

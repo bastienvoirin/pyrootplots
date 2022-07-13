@@ -180,9 +180,11 @@ class Histogram1D:
                              histtype = "step",
                              color    = "black")
         else: # data is already binned
-            mergedScaledData = pd.concat([data * scale for (scale, data) in zip(self.scale[::-1], self.data[::-1])], axis=1)
+            scale, data = self.scale[::-1], self.data[::-1]
+            mergedScaledData = pd.concat([s * d for (s, d) in zip(scale, data)], axis=1)
             binsEdges = np.linspace(start=self.xmin, stop=self.xmax, num=self.bins)
             mergedBinsEdges = np.tile(binsEdges, (len(self.data), 1)).T
+
             # both filled and outlined
             if self.style == "both":
                 self.ax.hist(x         = mergedBinsEdges,
@@ -206,7 +208,15 @@ class Histogram1D:
                              stacked  = self.stacked)
             # outlineed
             if self.style == "outlined":
-                pass # TODO
+                self.ax.hist(x         = mergedBinsEdges,
+                             bins      = self.bins,
+                             range     = (self.xmin, self.xmax),
+                             density   = self.density,
+                             weights   = mergedScaledData,
+                             histtype  = "stepfilled",
+                             color     = None,
+                             stacked   = self.stacked,
+                             edgecolor = self.color[::-1])
 
         self.ax.set_xlim(xmin = self.xmin,
                          xmax = self.xmax)
